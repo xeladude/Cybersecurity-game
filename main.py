@@ -4,6 +4,8 @@ import pygame
 import sys
 
 from settings import *
+from ui import draw_desktop, draw_popup, draw_scan
+
 
 def main():
     # Initialize Pygame
@@ -11,7 +13,7 @@ def main():
     pygame.font.init()
 
     # Create the window
-    screen = pygame.display.set_mode((WIDTH, HIGHT))
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption(TITLE)
 
     clock = pygame.time.Clock()
@@ -22,14 +24,50 @@ def main():
     # Game State
     running = True
     current_day = START_DAY
+    game_state = STATE_DESKTOP
     
     while running: 
         clock.tick(FPS)
+
 
         # Events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
 
+            if event.type == pygame.KEYDOWN:
+                # State specific inputs and updates
+                # DESKTOP -> POPUP
+
+                if game_state == STATE_DESKTOP:
+                    if event.key == pygame.K_p:
+                        game_state = STATE_POPUP
+                    elif event.key == pygame.K_s:
+                        game_state = STATE_SCAN
+
+                # POPUP/SCAN -> DESKTOP
+                elif game_state == STATE_POPUP or STATE_SCAN:
+                    if event.key == pygame.K_r:
+                        game_state = STATE_DESKTOP
+
+
         # Drawing
-        screen.fill(DESKTOP)
+        # screen.fill(DESKTOP)
+
+        if game_state == STATE_DESKTOP:
+            draw_desktop(screen, font, current_day)
+
+        elif game_state == STATE_POPUP:
+            draw_popup(screen, font)
+
+        elif game_state == STATE_SCAN:
+            draw_scan(screen, font)
+
+
+        pygame.display.flip()
+
+    pygame.quit()
+    sys.exit()
+
+if __name__ == "__main__":
+    main()
