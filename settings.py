@@ -15,7 +15,15 @@ DESKTOP = (30, 120, 200)
 START_DAY = 1
 MAX_DAY = 7
 
+
 # Game States
 STATE_DESKTOP = "desktop"
 STATE_POPUP = "popup"
 STATE_SCAN = "scan"
+STATE_MENU = "menu"
+SELECT_DAY = "day"
+STATE_TUTORIAL = ""
+STATE_CUTSCENE = ""
+STATE_PLAY = ""
+STATE_END = ""
+STATE_DAY_SELECT = "day_select"

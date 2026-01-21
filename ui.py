@@ -22,3 +22,35 @@ def draw_scan(screen, font):
 
     screen.blit(title,(110, 180))
     screen.blit(text,(110, 220))
+    
+def draw_menu(screen, font):
+    screen.fill(BLACK)
+    title = font.render(f"Cybersecurity Game", True, WHITE)
+    text = font.render("(press enter to start)", True, WHITE)
+
+    screen.blit(title, (120, 200)) 
+    screen.blit(text, (120, 240))
+
+def draw_dayselect(screen, font):
+    screen.fill(BLACK)
+    title = font.render(f"Select Day:", True, WHITE)
+
+    screen.blit(title, (120, 170))
+    for i in range(1,8):
+        day_text = font.render(str(i), True, WHITE)
+        screen.blit(day_text, (150 + i * 30, 200))
+
+def draw_tutorial(screen,font):
+    screen.fill(BLACK)
+    lines = [
+        ":Line 1",
+        "Line 2",
+        "",
+        "Press space to continue"
+    ]
+    y = 150
+    for line in lines:
+        text = font.render(line, True, WHITE)
+        screen.blit(text, (50, y))
+        y += 40
+    
