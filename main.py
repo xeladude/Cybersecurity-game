@@ -4,7 +4,8 @@ import pygame
 import sys
 
 from settings import *
-from ui import draw_desktop, draw_popup, draw_scan, draw_menu, draw_dayselect, draw_tutorial
+from ui import draw_desktop, draw_popup, draw_scan, draw_menu, draw_dayselect, draw_tutorial, draw_play
+
 
 
 def main():
@@ -14,7 +15,11 @@ def main():
 
     # Create the window
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
+
     pygame.display.set_caption(TITLE)
+
+    bg = pygame.image.load("assets\\backgrounds\\Bgpisckel-1.png").convert
+
 
     clock = pygame.time.Clock()
 
@@ -34,8 +39,12 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            
+            elif event.type == pygame.VIDEORESIZE:
+                current_width, current_height = event.size
+                screen = pygame.display.set_mode((current_width, current_height), pygame.RESIZABLE)
 
-            if event.type == pygame.KEYDOWN:
+            elif event.type == pygame.KEYDOWN:
                 # State specific inputs and updates
                 # MENU -> DAY SELECT
                 if game_state == STATE_MENU:
@@ -44,12 +53,22 @@ def main():
 
                 # DAY SELECT -> TUTORIAL
                 elif game_state == STATE_DAY_SELECT:
-                    if event.key == pygame.K_1 <= event.key <= pygame.K_7:
+                    if pygame.K_1 <= event.key <= pygame.K_7:
                         current_day = event.key - pygame.K_0
                         if current_day == 1:
                             game_state = STATE_TUTORIAL
                         else:
                             game_state = STATE_DESKTOP
+
+                # TUTORIAL -> PLAY (continue to desk)
+                elif game_state == STATE_TUTORIAL:
+                    print("Game state is = TUTORIAL")
+                    print(STATE_MENU)
+                    if event.key == pygame.K_RETURN:
+                        print("Key pressed, switching to play state")
+                        game_state = STATE_PLAY
+                        print(STATE_MENU)
+
 
 
         # Drawing
@@ -64,6 +83,8 @@ def main():
         elif game_state == STATE_TUTORIAL:
             draw_tutorial(screen, font)
 
+        elif game_state == STATE_PLAY:
+            draw_play(screen, font)
 
         elif game_state == STATE_DESKTOP:
             draw_desktop(screen, font, current_day)

@@ -1,10 +1,12 @@
 # settings.py
 
 # Window Settings
-WIDTH = 500
-HEIGHT = 500
+WIDTH = 800
+HEIGHT = 600
 FPS = 60
 TITLE = "Cybersecurity Game"
+RESIZABLE = False
+
 
 # Colors
 WHITE = (255, 255, 255)
@@ -22,8 +24,10 @@ STATE_POPUP = "popup"
 STATE_SCAN = "scan"
 STATE_MENU = "menu"
 SELECT_DAY = "day"
-STATE_TUTORIAL = ""
-STATE_CUTSCENE = ""
-STATE_PLAY = ""
-STATE_END = ""
+STATE_TUTORIAL = "tutorial"
+STATE_CUTSCENE = "cutscene"
+
+STATE_PLAY = "play"
+STATE_END = "end"
+
 STATE_DAY_SELECT = "day_select"

@@ -1,6 +1,12 @@
 import pygame
 from settings import *
 
+# In-Game Screens
+def draw_play(screen, font, background):
+    screen.fill(BLACK)
+    text = font.render(" this is a test ", True, WHITE)
+    screen.blit(background, (0,0))
+
 def draw_desktop(screen, font, day):
     screen.fill(DESKTOP)
     day_text = font.render(f"day {day}", True, WHITE)
@@ -22,7 +28,9 @@ def draw_scan(screen, font):
 
     screen.blit(title,(110, 180))
     screen.blit(text,(110, 220))
-    
+
+
+# UI Screens (Menu, Day Select, Tutorial)
 def draw_menu(screen, font):
     screen.fill(BLACK)
     title = font.render(f"Cybersecurity Game", True, WHITE)
@@ -43,7 +51,7 @@ def draw_dayselect(screen, font):
 def draw_tutorial(screen,font):
     screen.fill(BLACK)
     lines = [
-        ":Line 1",
+        "Tutorial Screen",
         "Line 2",
         "",
         "Press space to continue"
