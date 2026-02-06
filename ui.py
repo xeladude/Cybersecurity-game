@@ -61,4 +61,3 @@ def draw_tutorial(screen,font):
         text = font.render(line, True, WHITE)
         screen.blit(text, (50, y))
         y += 40
-    

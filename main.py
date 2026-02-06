@@ -18,8 +18,8 @@ def main():
 
     pygame.display.set_caption(TITLE)
 
-    bg = pygame.image.load("assets\\backgrounds\\Bgpisckel-1.png").convert
-
+    bg = pygame.image.load("assets\\backgrounds\\Bgpisckel-1.png").convert()
+    bg = pygame.transform.scale(bg,(WIDTH,HEIGHT))
 
     clock = pygame.time.Clock()
 
@@ -40,12 +40,13 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
             
-            elif event.type == pygame.VIDEORESIZE:
-                current_width, current_height = event.size
-                screen = pygame.display.set_mode((current_width, current_height), pygame.RESIZABLE)
+            # elif event.type == pygame.VIDEORESIZE:
+            #     current_width, current_height = event.size
+            #     screen = pygame.display.set_mode((current_width, current_height), pygame.RESIZABLE)
 
             elif event.type == pygame.KEYDOWN:
                 # State specific inputs and updates
+                
                 # MENU -> DAY SELECT
                 if game_state == STATE_MENU:
                     if event.key == pygame.K_RETURN:
@@ -58,14 +59,14 @@ def main():
                         if current_day == 1:
                             game_state = STATE_TUTORIAL
                         else:
-                            game_state = STATE_DESKTOP
+                            game_state = STATE_PLAY
 
                 # TUTORIAL -> PLAY (continue to desk)
                 elif game_state == STATE_TUTORIAL:
-                    print("Game state is = TUTORIAL")
+                    print("Game state is = ")
                     print(STATE_MENU)
                     if event.key == pygame.K_RETURN:
-                        print("Key pressed, switching to play state")
+                        print("Key pressed, switching to Play")
                         game_state = STATE_PLAY
                         print(STATE_MENU)
 
@@ -84,7 +85,7 @@ def main():
             draw_tutorial(screen, font)
 
         elif game_state == STATE_PLAY:
-            draw_play(screen, font)
+            draw_play(screen, font, bg)
 
         elif game_state == STATE_DESKTOP:
             draw_desktop(screen, font, current_day)

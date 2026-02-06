@@ -14,7 +14,15 @@
         
 
 (program the tutorial next time)
+Shell done:
+interactives needed: computers, usb, other tech, window curtens( for secret, later)
+main menu should be clickable as well as able to recive input via keyboard
+tutorial should go over all the basics as well as a discription of every problom they main incounter in the first couple nights.
+WS
 
 
 
 
+
+
+S
