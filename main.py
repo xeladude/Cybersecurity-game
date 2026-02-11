@@ -21,7 +21,16 @@ def main():
     bg = pygame.image.load("assets\\backgrounds\\Bgpisckel-1.png").convert()
     bg = pygame.transform.scale(bg,(WIDTH,HEIGHT))
 
+
+    monitor_img = pygame.image.load("assets\\objects\\monitor.png").convert_alpha()
+    usb_img = pygame.image.load("assets\\objects\\usb.png").convert_alpha()
+    
+    monitor_hit = monitor_img.get_rect(topleft = (420, 220))
+    usb_hit = usb_img.get_rect(topleft = (24, 12))
+
+
     clock = pygame.time.Clock()
+
 
     # Fonts
     font = pygame.font.SysFont("arial",20)
@@ -33,7 +42,6 @@ def main():
     
     while running: 
         clock.tick(FPS)
-
 
         # Events
         for event in pygame.event.get():
@@ -70,6 +78,15 @@ def main():
                         game_state = STATE_PLAY
                         print(STATE_MENU)
 
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get.pos()
+
+                if game_state == STATE_PLAY:
+                    if monitor_hit.collidepoint(mouse_pos):
+                        print("monitor clicked")
+
+
+
 
 
         # Drawing
@@ -85,7 +102,7 @@ def main():
             draw_tutorial(screen, font)
 
         elif game_state == STATE_PLAY:
-            draw_play(screen, font, bg)
+            draw_play(screen, font, bg, usb_img, usb_hit, monitor_img, monitor_hit)
 
         elif game_state == STATE_DESKTOP:
             draw_desktop(screen, font, current_day)

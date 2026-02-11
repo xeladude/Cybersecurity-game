@@ -2,10 +2,10 @@ import pygame
 from settings import *
 
 # In-Game Screens
-def draw_play(screen, font, background):
-    screen.fill(BLACK)
-    text = font.render(" this is a test ", True, WHITE)
+def draw_play(screen, font, background, usb_img, monitor_img, monitor_hit, usb_hit):
     screen.blit(background, (0,0))
+    screen.blit(monitor_img, monitor_hit)
+    screen.blit(usb_img, usb_hit)
 
 def draw_desktop(screen, font, day):
     screen.fill(DESKTOP)
