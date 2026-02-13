@@ -5,7 +5,7 @@ import sys
 
 from settings import *
 from ui import draw_desktop, draw_popup, draw_scan, draw_menu, draw_dayselect, draw_tutorial, draw_play
-
+from helpers import *
 
 
 def main():
@@ -21,12 +21,9 @@ def main():
     bg = pygame.image.load("assets\\backgrounds\\Bgpisckel-1.png").convert()
     bg = pygame.transform.scale(bg,(WIDTH,HEIGHT))
 
+    monitor_img, monitor_hit, monitor_mask = load_sprite("assets\\objects\\monitor.png", (760, 380), (10, 10))
+    usb_img, usb_hit, usb_mask = load_sprite("assets\\objects\\usb.png", (186, 88), (10, 340))
 
-    monitor_img = pygame.image.load("assets\\objects\\monitor.png").convert_alpha()
-    usb_img = pygame.image.load("assets\\objects\\usb.png").convert_alpha()
-    
-    monitor_hit = monitor_img.get_rect(topleft = (420, 220))
-    usb_hit = usb_img.get_rect(topleft = (24, 12))
 
 
     clock = pygame.time.Clock()
@@ -79,11 +76,19 @@ def main():
                         print(STATE_MENU)
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_pos = pygame.mouse.get.pos()
+                mouse_pos = pygame.mouse.get_pos()
 
                 if game_state == STATE_PLAY:
                     if monitor_hit.collidepoint(mouse_pos):
-                        print("monitor clicked")
+                        rel_x = mouse_pos[0] - monitor_hit.x
+                        rel_y = mouse_pos[1] - monitor_hit.y
+                        if monitor_mask.get_at((rel_x, rel_y)):
+                            print("monitor clicked")
+                    elif usb_hit.collidepoint(mouse_pos):
+                        rel_x = mouse_pos[0] - usb_hit.x
+                        rel_y = mouse_pos[1] - usb_hit.y
+                        if usb_mask.get_at((rel_x, rel_y)):
+                            print("usb clicked")
 
 
 
@@ -102,7 +107,7 @@ def main():
             draw_tutorial(screen, font)
 
         elif game_state == STATE_PLAY:
-            draw_play(screen, font, bg, usb_img, usb_hit, monitor_img, monitor_hit)
+            draw_play(screen, font, bg, usb_img, monitor_img, monitor_hit, usb_hit)
 
         elif game_state == STATE_DESKTOP:
             draw_desktop(screen, font, current_day)
